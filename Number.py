@@ -18,23 +18,42 @@ def primenumber(number):
             primelist.append(i)
     return primelist[1:]
 
-def factorizationintoprimes(number,factorlist=[]):
+def factorizationintoprimes(number):
     mylist=factorization(number)
+    result=[]
     if mylist != []:
-        factorlist.append(mylist[0])
-        factorizationintoprimes(mylist[-1],factorlist)
-    if mylist ==[]:
-        factorlist.append(number)
-
-    return factorlist 
+        result.append(mylist[0])
+        result=result+factorizationintoprimes(mylist[-1])
+    if mylist == []:
+        result.append(number)
+    return result 
         
+def greatestcommonfactor(n1,n2):
+    list1=factorization(n1)
+    result=0
+    for i in list1:
+        if n2 % i == 0:
+            result=i
+    return result 
 
-b=int(input("Input a positive integer: "))
+def leastcommonmultiple(n1,n2):
+    bigger=max(n1,n2)
+    smaller=min(n1,n2)
+    for i in range(1,smaller+1):
+        if (i*bigger) % smaller == 0:
+            return i*bigger
+    return n1*n2
 
+a=int(input("Input a positive integer: "))
+b=int(input("input another positive integer: "))
+
+print(factorization(a))
+#print(primenumber(b))
+print(factorizationintoprimes(a))
 print(factorization(b))
-print(primenumber(b))
 print(factorizationintoprimes(b))
-
+print(greatestcommonfactor(a,b))
+print(leastcommonmultiple(a,b))
 
 #if you want to make it as a module, remove below code's #
 #def main():
